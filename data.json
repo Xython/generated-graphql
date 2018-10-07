@@ -1,0 +1,59 @@
+{
+  "name": "school",
+  "floors": [
+    {
+      "name": "sf1",
+      "rooms": []
+    },
+    {
+      "name": "sf2",
+      "rooms": []
+    },
+    {
+      "name": "sf3",
+      "rooms": [
+        {
+          "name": "a304",
+          "bookmark": {
+            "link": "target"
+          },
+          "dimension_gate": {
+            "name": "301",
+            "floors": [
+              {
+                "name": "f1",
+                "rooms": [
+                  {
+                    "bookmark": {},
+                    "dimension_gate": null,
+                    "name": "r1"
+                  },
+                  {
+                    "bookmark": {},
+                    "dimension_gate": null,
+                    "name": "r2"
+                  }
+                ]
+              },
+              {
+                "name": "f2",
+                "rooms": [
+                  {
+                    "bookmark": {},
+                    "dimension_gate": null,
+                    "name": "r3"
+                  },
+                  {
+                    "bookmark": {},
+                    "dimension_gate": null,
+                    "name": "r4"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
