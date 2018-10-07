@@ -1,6 +1,6 @@
-from auto_property.schema_analyse import *
-from auto_property.graphql_naive import generate as naive_generate
-from auto_property.graphql_ast import generate as ast_generate
+from auto_json.schema_analyse import *
+from auto_json.graphql_naive import generate as naive_generate
+from auto_json.graphql_ast import generate as ast_generate
 from pprint import pprint
 from timeit import timeit
 

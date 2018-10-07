@@ -3,9 +3,9 @@
 import typing as t
 from pprint import pprint
 import json
-from auto_property.schema_analyse import AutoJson, SchemaMonitor
-from auto_property.graphql_naive import generate as naive_generate
-from auto_property.graphql_ast import generate as ast_generate
+from auto_json.schema_analyse import AutoJson, SchemaMonitor
+from auto_json.graphql_naive import generate as naive_generate
+from auto_json.graphql_ast import generate as ast_generate
 with open('data.json', 'rb') as fr:
     data = json.load(fr)
 
