@@ -228,7 +228,7 @@ def generate_method_maker() -> t.Tuple[t.List[type], ast.Module]:
                 ast_assign(cls_instance_var,
                            ast_call(ast_name('_' + named_type.__name__), [])),
                 ast_assign(data_field_getter_var,
-                           ast_attr(ast_name(block), 'get')),
+                           ast_attr(ast_name(block), '__getitem__')),
                 *sum(fields_making, [])
             ]
         else:
