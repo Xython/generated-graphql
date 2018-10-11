@@ -23,7 +23,7 @@ naive_make_A = A.from_dict
 a = naive_make_A(data)
 print(a)
 
-ast_generate()
+ast_generate(use_cython=True)
 ast_make_A = A.from_dict
 a = ast_make_A(data)
 print(a)

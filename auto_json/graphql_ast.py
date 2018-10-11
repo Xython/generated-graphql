@@ -10,10 +10,12 @@ ast 层面的graphql优化:
 
 """
 # from astpretty import pprint
-# from rbnf.py_tools.unparse import Unparser
-
+from rbnf.py_tools.unparse import Unparser
 from .schema_analyse import *
+from .load_cy import compile_module
 import ast
+import io
+import textwrap
 
 
 class CollectLocal(ast.NodeVisitor):
@@ -267,7 +269,7 @@ def generate_method_maker() -> t.Tuple[t.List[type], ast.Module]:
     closure = ast.FunctionDef(
         name='make',
         args=ast.arguments(
-            args=[],
+            args=[ast.arg(each.__name__, None) for each in types],
             vararg=None,
             kwonlyargs=[],
             kwarg=None,
@@ -295,12 +297,19 @@ def generate_method_maker() -> t.Tuple[t.List[type], ast.Module]:
     return types, mod
 
 
-def generate():
+def generate(use_cython=False):
     types, mod = generate_method_maker()
-    # Unparser(mod)
-    ctx = {t.__name__: t for t in types}
-    exec(compile(mod, "<generated module>", 'exec'), ctx)
-    fn_dict: dict = ctx['make']()
+    if use_cython:
+        with io.StringIO() as ios:
+            Unparser(mod, ios)
+            source = ios.getvalue()
+            mod = compile_module(source, 'generated_module')
+            make = getattr(mod, 'make')
+    else:
+        ctx = {t.__name__: t for t in types}
+        exec(compile(mod, "<generated module>", 'exec'), ctx)
+        make = ctx['make']
+    fn_dict: dict = make(*types)
     for qualname, fn in fn_dict.items():
         ty, _ = SchemaMonitor.schemas[qualname]
         setattr(ty, 'from_dict', staticmethod(fn))

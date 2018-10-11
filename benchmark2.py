@@ -34,6 +34,8 @@ naive_generate()
 f1 = Building.from_dict
 ast_generate()
 f2 = Building.from_dict
+ast_generate(use_cython=True)
+f3 = Building.from_dict
 
 building = Building.from_dict(data)
 
@@ -83,6 +85,11 @@ def benchmark():
     print('ast level generated function costs',
           timeit('fn(data)', number=100000, globals={
               **ctx, 'fn': f2
+          }))
+
+    print('ast level generated function with cython compilation costs',
+          timeit('fn(data)', number=100000, globals={
+              **ctx, 'fn': f3
           }))
 
 
